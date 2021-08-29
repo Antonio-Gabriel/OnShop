@@ -1,0 +1,54 @@
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:host{
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+header .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    
+    padding: 10px 10px;
+    position: relative;
+}
+
+main{
+    margin: 20px 0;
+}
+
+main .products .container .product__title{
+    margin: 20px 0 23px 0;
+}
+
+main .products .container .product__cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 4px;
+}
+
+main .products .container .product__cards .card{
+    width: 250px;
+    height: 150px;
+    border: 1px solid gainsboro;
+    border-radius: 4px;
+}
+
+footer .container{
+    text-align: center;
+    padding: 10px 0;
+    background-color: gainsboro;
+    border-radius: 4px;
+}
