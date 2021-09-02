@@ -117,7 +117,6 @@ context.setContextDb(products)
 
 
 let product = new Products()
-product.insertProduct({id: 4, name: 'RedCola', quantity: 1, price: 120.00, total: 120.00})
-
+product.insertProduct({ name: 'RedCola', quantity: 1, price: 120.00, total: 120.00 })
 
 ```

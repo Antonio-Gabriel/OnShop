@@ -40,7 +40,7 @@ class Products {
     insertProduct(productParams){       
         let product = this.context.getContextData()     
                 
-        if(this.checkExistentProduct(productParams).length > 0)
+        if(this.checkExistentProduct(productParams))
             return { state: 0, message: 'This product exist in stock' }   
                   
         if(!product) {
@@ -85,7 +85,7 @@ class Products {
                 (item) => item.name == product.name
             ) 
         }         
-        return check               
+        return (check.length > 0) ? true : false
     }
     
 }
