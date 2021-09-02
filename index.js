@@ -10,13 +10,22 @@ class DbContextConfig{
 }
 
 
+class IdGenerate {
+
+    static generateId(storage) {
+        if(!storage) return 1
+        return storage.length + 1
+    }
+
+}
+
 class Products {
 
-    context = null
+    context = null    
     storageSet =  []
 
     constructor(){    
-        this.context = new DbContextConfig()
+        this.context = new DbContextConfig()        
     }
     
     showProducts(){
@@ -33,13 +42,23 @@ class Products {
                 
         if(this.checkExistentProduct(productParams).length > 0)
             return { state: 0, message: 'This product exist in stock' }   
+                  
+        if(!product) {
+            this.storageSet.push({
+                id: IdGenerate.generateId(product),
+                ...productParams
+            })  
+        }else {
+            this.storageSet.push(
+                ...product,
+                {
+                    id: IdGenerate.generateId(product),                
+                    ...productParams
+                }
+            )     
+        }            
         
-        for(let i = 0; i < product.length; i++) {
-            this.storageSet.push(product[i])
-        }    
-        this.storageSet.push(productParams)
-
-        return (this.context.setContextDb(this.storageSet)) ? 'ERROR!' : 'Successuly!'
+        return (!this.context.setContextDb(this.storageSet)) ? 'Successuly!' : 'ERROR!'
     }
 
     updateProduct(productParams){
@@ -59,13 +78,16 @@ class Products {
     }
 
     checkExistentProduct(product){     
-        let productFitlter = this.context.getContextData()       
-        let check = productFitlter.filter(
-            (item) => item.id == product.id || item.name == product.name
-        ) 
+        let check = []
+        let productFitlter = this.context.getContextData()      
+        if(productFitlter) {
+            check = productFitlter.filter(
+                (item) => item.name == product.name
+            ) 
+        }         
         return check               
     }
-        
+    
 }
 
 
@@ -77,5 +99,7 @@ class Products {
 
 // let context = new DbContextConfig()
 // context.setContextDb(products)
-// let product = new Products()
-// product.insertProduct({id: 4, name: 'RedCola', quantity: 1, price: 120.00, total: 120.00})
+
+let product = new Products()
+let message = product.insertProduct({ name: 'Batata', quantity: 1, price: 120.00, total: 120.00})
+console.log(message)

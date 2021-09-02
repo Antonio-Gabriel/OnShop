@@ -43,18 +43,28 @@ class Products {
         })
     }
 
-    insertProduct(productParams){       
+   insertProduct(productParams){       
         let product = this.context.getContextData()     
                 
         if(this.checkExistentProduct(productParams).length > 0)
             return { state: 0, message: 'This product exist in stock' }   
+                  
+        if(!product) {
+            this.storageSet.push({
+                id: IdGenerate.generateId(product),
+                ...productParams
+            })  
+        }else {
+            this.storageSet.push(
+                ...product,
+                {
+                    id: IdGenerate.generateId(product),                
+                    ...productParams
+                }
+            )     
+        }            
         
-        for(let i = 0; i < product.length; i++) {
-            this.storageSet.push(product[i])
-        }    
-        this.storageSet.push(productParams)
-
-        return (this.context.setContextDb(this.storageSet)) ? 'ERROR!' : 'Successuly!'
+        return (!this.context.setContextDb(this.storageSet)) ? 'Successuly!' : 'ERROR!'
     }
 
     updateProduct(productParams){
