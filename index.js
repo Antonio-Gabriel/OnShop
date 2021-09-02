@@ -64,10 +64,8 @@ class Products {
     updateProduct(productParams){
         let product = this.context.getContextData()  
                 
-        for(let i = 0; i < product.length; i++) {
-            this.storageSet.push(product[i])
-        }    
-        
+        this.storageSet.push(...product)        
+                
         let index = this.storageSet.findIndex((item) => item.id == productParams.id)
         this.storageSet[index] = productParams        
 
@@ -100,6 +98,6 @@ class Products {
 // let context = new DbContextConfig()
 // context.setContextDb(products)
 
-let product = new Products()
-let message = product.insertProduct({ name: 'Batata', quantity: 1, price: 120.00, total: 120.00})
-console.log(message)
+// let product = new Products()
+// let message = product.insertProduct({ name: 'Batata', quantity: 1, price: 120.00, total: 120.00})
+// console.log(message)

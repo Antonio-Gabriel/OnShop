@@ -34,6 +34,7 @@ function render({ id, name, quantity, price, total }){
                 </div>
                 <div class="card__action">
                     <button type="submit" class="btn-action" onClick="addToCart(${id})" >Add to cart</button>
+                    <button type="submit" class="btn-action" onClick="removeProduct(${id})" >Remove Product</button>
                 </div>                           
             </div>
         </div>
@@ -43,9 +44,13 @@ function render({ id, name, quantity, price, total }){
 function addToCart(id){
     const currentProduct = data.showProducts().filter((product) => product.id == id)
     const actualQuantity = currentProduct.map((item) => ++item.quantity)  
-    currentProduct[0].total =  (currentProduct[0].price * actualQuantity)   
+    currentProduct[0].total = (currentProduct[0].price * actualQuantity)   
     data.updateProduct(currentProduct[0])
     sumTotalCart()
+}
+
+function removeProduct(id){
+    console.log(id)
 }
 
 function sumTotalCart(){    
