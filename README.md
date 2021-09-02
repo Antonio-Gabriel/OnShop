@@ -83,12 +83,15 @@ class Products {
         location.reload()
     }
 
-    checkExistentProduct(product){     
-        let productFitlter = this.context.getContextData()       
-        let check = productFitlter.filter(
-            (item) => item.id == product.id || item.name == product.name
-        ) 
-        return check               
+   checkExistentProduct(product){     
+        let check = []
+        let productFitlter = this.context.getContextData()      
+        if(productFitlter) {
+            check = productFitlter.filter(
+                (item) => item.name == product.name
+            ) 
+        }         
+        return (check.length > 0) ? true : false
     }
         
 }
