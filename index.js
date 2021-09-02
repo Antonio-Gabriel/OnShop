@@ -1,5 +1,4 @@
 class DbContextConfig{
-
     setContextDb(data) {
         return localStorage.setItem('products', JSON.stringify(data))
     }
@@ -11,12 +10,10 @@ class DbContextConfig{
 
 
 class IdGenerate {
-
     static generateId(storage) {
         if(!storage) return 1
         return storage.length + 1
     }
-
 }
 
 class Products {
@@ -75,6 +72,22 @@ class Products {
         location.reload()
     }
 
+    deleteProduct(id) {
+        let product = this.context.getContextData()  
+                
+        this.storageSet.push(...product)        
+                
+        let productIndex = this.storageSet.findIndex((item) => item.id == id)        
+        
+        const remainingItems = this.storageSet.filter((item, index) => {
+            return index !== productIndex
+        })
+
+        localStorage.clear()
+        this.context.setContextDb(remainingItems)        
+        location.reload()
+    }
+
     checkExistentProduct(product){     
         let check = []
         let productFitlter = this.context.getContextData()      
@@ -99,5 +112,5 @@ class Products {
 // context.setContextDb(products)
 
 // let product = new Products()
-// let message = product.insertProduct({ name: 'Batata', quantity: 1, price: 120.00, total: 120.00})
+// let message = product.insertProduct({ name: 'Ananas', quantity: 1, price: 120.00, total: 120.00})
 // console.log(message)

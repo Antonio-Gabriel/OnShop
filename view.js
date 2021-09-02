@@ -49,8 +49,9 @@ function addToCart(id){
     sumTotalCart()
 }
 
-function removeProduct(id){
-    console.log(id)
+function removeProduct(id){    
+    data.deleteProduct(id)
+    innerResult()
 }
 
 function sumTotalCart(){    
